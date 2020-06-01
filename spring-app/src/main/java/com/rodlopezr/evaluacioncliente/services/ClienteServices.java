@@ -46,7 +46,7 @@ public class ClienteServices {
     	if(oModel.getNombre() == null) return oResponse.Error("Campo Nombre es necesario");
     	
     	List<Cliente> oVal = oRepository.findByEmail(oModel.getEmail());
-    	if(oVal != null && oVal.size() > 0) return oResponse.Error("Email existente");
+    	if(oVal != null && oVal.size() > 0) return oResponse.Ok(oVal.get(0));
     	
     	oModel.setId(UUID.randomUUID().toString());
     	oModel = oRepository.save(oModel);
