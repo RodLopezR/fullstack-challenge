@@ -25,7 +25,6 @@ const NewEvaluacionForm = ({ addAccount, account, addNotification }) => {
             const reqCliente = { email, nombre };
             const oRespCliente = await RClinte(reqCliente);
             const oRespEval = await REvaluacion({ idCliente: oRespCliente.id, evaluacion });
-            console.log(oRespEval);
             setTimeout(() => {
                 addAccount(oRespCliente);
                 history.push(Routes.Evaluaciones);

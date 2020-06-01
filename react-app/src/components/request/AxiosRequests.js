@@ -7,7 +7,11 @@ const GetRequest = async (url, params) => {
         axios.get(url, params)
             .then(response => {
                 if(response != null && response.data != null && typeof response.data === "object"){
-                    resolve(response.data);
+                    if(response.data.code === 1){
+                        resolve(response.data.data );
+                    }else{
+                        reject({ message: response.data.message });
+                    }
                 }else{ 
                     reject({ message: "No se completó la operación" });
                 }
@@ -25,7 +29,11 @@ const PostRequest = async (url, _params) => {
         axios.post(url, params, headers)
             .then(response => {
                 if(response != null && response.data != null && typeof response.data === "object"){
-                    resolve(response.data);
+                    if(response.data.code === 1){
+                        resolve(response.data.data );
+                    }else{
+                        reject({ message: response.data.message });
+                    }
                 }else{ 
                     reject({ message: "No se completó la operación" });
                 }
@@ -40,7 +48,11 @@ const PutRequest = async (url, params) => {
         axios.put(url, params)
             .then(response => {
                 if(response != null && response.data != null && typeof response.data === "object"){
-                    resolve(response.data);
+                    if(response.data.code === 1){
+                        resolve(response.data.data );
+                    }else{
+                        reject({ message: response.data.message });
+                    }
                 }else{ 
                     reject({ message: "No se completó la operación" });
                 }
