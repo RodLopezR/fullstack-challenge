@@ -16,20 +16,20 @@ import lombok.Data;
 public class Evaluacion {
 
 	@Id
-	private String nId;
-	private String nIdCliente;
-	private Integer nEvaluacion;
-	private String sRegistro;
-	private String sActualizacion;
+	private String id;
+	private String idcliente;
+	private Integer evaluacion;
+	private String registro;
+	private String actualizacion;
 	
 	public Evaluacion() { }
 	
-	public Evaluacion(String nId, String nIdCliente, Integer nEvaluacion, String sRegistro, String sActualizacion) {
-		this.nId = nId;
-		this.nIdCliente = nIdCliente;
-		this.nEvaluacion = nEvaluacion;
-		this.sRegistro = sRegistro;
-		this.sActualizacion = sActualizacion;
+	public Evaluacion(String id, String idcliente, Integer evaluacion, String registro, String actualizacion) {
+		this.id = id;
+		this.idcliente = idcliente;
+		this.evaluacion = evaluacion;
+		this.registro = registro;
+		this.actualizacion = actualizacion;
 	}
 	
 	@ApiModelProperty(
@@ -40,7 +40,7 @@ public class Evaluacion {
 		allowEmptyValue = true
 	)
 	public String getId() {
-		return nId;
+		return id;
 	}
 
 	@ApiModelProperty(
@@ -51,7 +51,7 @@ public class Evaluacion {
 		allowEmptyValue = true
 	)
 	public String getIdCliente() {
-		return nIdCliente;
+		return idcliente;
 	}
 
 	@ApiModelProperty(
@@ -61,7 +61,7 @@ public class Evaluacion {
 		example = "8"
 	)
 	public Integer getEvaluacion() {
-		return nEvaluacion;
+		return evaluacion;
 	}
 
 	@ApiModelProperty(
@@ -72,7 +72,7 @@ public class Evaluacion {
 		allowEmptyValue = true
 	)
 	public String getRegistro() {
-		return sRegistro;
+		return registro;
 	}
 
 	@ApiModelProperty(
@@ -83,27 +83,27 @@ public class Evaluacion {
 		allowEmptyValue = true
 	)
 	public String getActualizacion() {
-		return sActualizacion;
+		return actualizacion;
 	}
 	
-	public void setId(String nId) {
-		this.nId = nId;
+	public void setId(String id) {
+		this.id = id;
 	}
 	
-	public void setIdCliente(String nIdCliente) {
-		this.nIdCliente = nIdCliente;
+	public void setIdCliente(String idcliente) {
+		this.idcliente = idcliente;
 	}
 	
-	public void setEvaluacion(Integer nEvaluacion) {
-		this.nEvaluacion = nEvaluacion;
+	public void setEvaluacion(Integer evaluacion) {
+		this.evaluacion = evaluacion;
 	}
 	
-	public void setActualizacion(String sActualizacion) {
-		this.sActualizacion = sActualizacion;
+	public void setActualizacion(String actualizacion) {
+		this.actualizacion = actualizacion;
 	}
 	
-	public void setRegistro(String sRegistro) {
-		this.sRegistro = sRegistro;
+	public void setRegistro(String registro) {
+		this.registro = registro;
 	}
 	
 	public void setActualizacion() {

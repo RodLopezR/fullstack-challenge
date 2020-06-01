@@ -81,7 +81,7 @@ public class ClienteController {
 
 	@PostMapping("cliente")
     @ResponseStatus(HttpStatus.CREATED)
-	@ApiOperation(value = "Registro de cliente nuevo", response = Cliente.class, responseContainer="List")
+	@ApiOperation(value = "Registro de cliente nuevo", response = Cliente.class, responseContainer="ResponseEntity")
 	@ApiResponses(value = {
         @ApiResponse(code = 200, message = Constantes.ApiResponse200),
         @ApiResponse(code = 401, message = Constantes.ApiResponse401),

@@ -12,28 +12,28 @@ import org.springframework.data.annotation.Id;
 public class Cliente {
 
 	@Id
-	private String sId;
-	private String sNombre;
-	private String sEmail;
+	private String id;
+	private String nombre;
+	private String email;
 	
 	public Cliente() { }
 	
-	public Cliente(String sId, String sNombre, String sEmail) {
-		this.sId = sId;
-		this.sNombre = sNombre;
-		this.sEmail = sEmail;
+	public Cliente(String id, String nombre, String email) {
+		this.id = id;
+		this.nombre = nombre;
+		this.email = email;
 	}
 
-	public Cliente setId(String sId) {
-		this.sId = sId; return this;
+	public Cliente setId(String id) {
+		this.id = id; return this;
 	}
 
-	public Cliente setNombre(String sNombre) {
-		this.sNombre = sNombre; return this;
+	public Cliente setNombre(String nombre) {
+		this.nombre = nombre; return this;
 	}
 
-	public Cliente setEmail(String sEmail) {
-		this.sEmail = sEmail; return this;
+	public Cliente setEmail(String email) {
+		this.email = email; return this;
 	}
 
 	@ApiModelProperty(
@@ -44,7 +44,7 @@ public class Cliente {
 		allowEmptyValue = true
 	)
 	public String getId() {
-		return sId;
+		return id;
 	}
 	
 	@ApiModelProperty(
@@ -54,7 +54,7 @@ public class Cliente {
 		example = "Rodrigo López"
 	)
 	public String getNombre() {
-		return sNombre;
+		return nombre;
 	}
 
 	@ApiModelProperty(
@@ -64,7 +64,7 @@ public class Cliente {
 		example = "test@domain.com"
 	)
 	public String getEmail() {
-		return sEmail;
+		return email;
 	}
 	
 	@Override
