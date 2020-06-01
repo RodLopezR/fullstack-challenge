@@ -1,0 +1,22 @@
+version: '3'
+services:
+  api-database:
+    image: "mongo:4.0.4"
+    container_name: "api-database"
+    ports:
+      - "27017:27017"
+  app-backend:
+    image: "docker-spring-app:latest"
+    container_name: "app-backend"
+    ports:
+      - "5000:5000"
+    links:
+      - api-database
+  app-frontend:
+    image: "docker-react-app:latest"
+    container_name: "app-frontend"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    links:
+      - app-backend
