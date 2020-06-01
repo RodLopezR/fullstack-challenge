@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.rodlopezr.evaluacioncliente.models.Cliente;
 import com.rodlopezr.evaluacioncliente.services.ClienteServices;
 import com.rodlopezr.evaluacioncliente.utils.Constantes;
+import com.rodlopezr.evaluacionclientes.responses.ClienteResponse;
+import com.rodlopezr.evaluacionclientes.responses.ListClienteResponse;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -55,7 +57,7 @@ public class ClienteController {
         @ApiResponse(code = 403, message = Constantes.ApiResponse403),
         @ApiResponse(code = 404, message = Constantes.ApiResponse404)
 	})
-	public ResponseEntity<List<Cliente>> ListCliente() {
+	public ResponseEntity<ListClienteResponse> ListCliente() {
 		try {
 			return ResponseEntity.ok(oService.findAll());
 		}catch(Exception oEx) {
@@ -64,14 +66,14 @@ public class ClienteController {
 	}
 
 	@GetMapping("cliente/{id}")
-	@ApiOperation(value = "Búsqueda de Cliente por Identificador", response = Cliente.class, responseContainer="ResponseEntity")
+	@ApiOperation(value = "Búsqueda de Cliente por Identificador", response = ClienteResponse.class, responseContainer="ResponseEntity")
 	@ApiResponses(value = {
 	        @ApiResponse(code = 200, message = Constantes.ApiResponse200),
 	        @ApiResponse(code = 401, message = Constantes.ApiResponse401),
 	        @ApiResponse(code = 403, message = Constantes.ApiResponse403),
 	        @ApiResponse(code = 404, message = Constantes.ApiResponse404)
 	})
-	public ResponseEntity<Cliente> Find(@PathVariable String id) {
+	public ResponseEntity<ClienteResponse> Find(@PathVariable String id) {
 		try {
 			return ResponseEntity.ok(oService.findOne(id));
 		}catch(Exception oEx) {
@@ -88,7 +90,7 @@ public class ClienteController {
         @ApiResponse(code = 403, message = Constantes.ApiResponse403),
         @ApiResponse(code = 404, message = Constantes.ApiResponse404)
 	})
-	public ResponseEntity<Cliente> Save(@RequestBody Cliente cliente) {
+	public ResponseEntity<ClienteResponse> Save(@RequestBody Cliente cliente) {
 		try {
 			return ResponseEntity.ok(oService.save(cliente));
 		}catch(Exception oEx) {
@@ -97,19 +99,16 @@ public class ClienteController {
 	}
 
     @PutMapping("cliente")
-	@ApiOperation(value = "Actualización de registro de cliente", response = Cliente.class, responseContainer="ResponseEntity")
+	@ApiOperation(value = "Actualización de registro de cliente", response = ClienteResponse.class, responseContainer="ResponseEntity")
 	@ApiResponses(value = {
         @ApiResponse(code = 200, message = Constantes.ApiResponse200),
         @ApiResponse(code = 401, message = Constantes.ApiResponse401),
         @ApiResponse(code = 403, message = Constantes.ApiResponse403),
         @ApiResponse(code = 404, message = Constantes.ApiResponse404)
 	})
-    public ResponseEntity<Cliente> Update(@RequestBody Cliente oCliente) {        
+    public ResponseEntity<ClienteResponse> Update(@RequestBody Cliente oCliente) {        
 		try {
-	        oCliente = oService.update(oCliente);
-	        if (oCliente == null)
-	            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-	        return ResponseEntity.ok(oCliente);
+	        return ResponseEntity.ok(oService.update(oCliente));
 		}catch(Exception oEx) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
@@ -126,6 +125,22 @@ public class ClienteController {
     public ResponseEntity<Long> deletePerson(@PathVariable String id) {
 		try {
 			return ResponseEntity.ok(oService.delete(id));
+		}catch(Exception oEx) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
+    }
+
+    @PostMapping("cliente/email/{email}")
+	@ApiOperation(value = "Test", response = Long.class, responseContainer="ResponseEntity")
+	@ApiResponses(value = {
+        @ApiResponse(code = 200, message = Constantes.ApiResponse200),
+        @ApiResponse(code = 401, message = Constantes.ApiResponse401),
+        @ApiResponse(code = 403, message = Constantes.ApiResponse403),
+        @ApiResponse(code = 404, message = Constantes.ApiResponse404)
+	})
+    public ResponseEntity<ListClienteResponse> findEmail(@PathVariable String email) {
+		try {
+			return ResponseEntity.ok(oService.findEmail(email));
 		}catch(Exception oEx) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}

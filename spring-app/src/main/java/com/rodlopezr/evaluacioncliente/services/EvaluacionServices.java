@@ -5,9 +5,14 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+import com.rodlopezr.evaluacioncliente.models.Cliente;
 import com.rodlopezr.evaluacioncliente.models.Evaluacion;
 import com.rodlopezr.evaluacioncliente.repository.IClienteRepository;
 import com.rodlopezr.evaluacioncliente.repository.IEvaluacionRepository;
+import com.rodlopezr.evaluacionclientes.responses.ClienteResponse;
+import com.rodlopezr.evaluacionclientes.responses.EvaluacionResponse;
+import com.rodlopezr.evaluacionclientes.responses.ListClienteResponse;
+import com.rodlopezr.evaluacionclientes.responses.ListEvaluacionResponse;
 
 @Service
 public class EvaluacionServices {
@@ -18,27 +23,38 @@ public class EvaluacionServices {
     	this.oRepository = oRepository;
     }
 
-	public List<Evaluacion> findAll() throws Exception {
-        return oRepository.findAll();
+	public ListEvaluacionResponse findAll() throws Exception {
+		ListEvaluacionResponse oResponse = new ListEvaluacionResponse();
+        return oResponse.Ok(oRepository.findAll());
 	}
 
-	public Evaluacion findOne(String id) throws Exception {
-        if (id == null) throw new Exception("No Id selected");
-        return oRepository.findById(id).get();
+	public EvaluacionResponse findOne(String id) throws Exception {
+		EvaluacionResponse oResponse = new EvaluacionResponse();
+        if (id == null) return oResponse.Error("Campo Id es necesario");
+        Evaluacion oModel = oRepository.findById(id).get();
+        return oResponse.Ok(oModel);
 	}
 
-	public Evaluacion save(Evaluacion oModel) throws Exception {
-        if (oModel.getIdCliente() == null) throw new Exception("No cliente");
+	public EvaluacionResponse save(Evaluacion oModel) throws Exception {
+		EvaluacionResponse oResponse = new EvaluacionResponse();
+    	
+        if (oModel.getIdCliente() == null) return oResponse.Error("Campo IdCliente es necesario");
         oModel.RegisterDate();
 
     	oModel.setId(UUID.randomUUID().toString());
-        return oRepository.save(oModel);
+    	oModel = oRepository.save(oModel);
+        return oResponse.Ok(oModel);
 	}
 
-	public Evaluacion update(Evaluacion oModel) throws Exception {
-        if (oModel.getId() == null) throw new Exception("No Id selected");
+	public EvaluacionResponse update(Evaluacion oModel) throws Exception {
+		EvaluacionResponse oResponse = new EvaluacionResponse();
+		
+        if (oModel.getId() == null) return oResponse.Error("Campo Id es necesario");
+        if (oModel.getIdCliente() == null) return oResponse.Error("Campo IdCliente es necesario");
         oModel.setActualizacion();
-        return oRepository.save(oModel);
+
+        Evaluacion oModel2 = oRepository.save(oModel);
+        return oResponse.Ok(oModel2);
     }
 
 	public long delete(String id) throws Exception {
@@ -46,13 +62,15 @@ public class EvaluacionServices {
         oRepository.deleteById(id); return 1;
 	}
 
-	public List<Evaluacion> findXCliente(String idCliente) throws Exception {
-        if (idCliente == null) throw new Exception("No Id selected");
-        return oRepository.findXCliente(idCliente);
+	public ListEvaluacionResponse findXCliente(String idCliente) throws Exception {
+		ListEvaluacionResponse oResponse = new ListEvaluacionResponse();
+        if (idCliente == null) return oResponse.Error("Campo IdCliente es necesario");
+        return oResponse.Ok(oRepository.findXCliente(idCliente));
 	}
 
-	public List<Evaluacion> findXClienteXFechas(String idCliente, String fechaini, String fechafin) throws Exception {
-        if (idCliente == null) throw new Exception("No Id selected");    
-        return oRepository.findXFechas(idCliente, fechaini, fechafin);
+	public ListEvaluacionResponse findXClienteXFechas(String idCliente, String fechaini, String fechafin) throws Exception {
+		ListEvaluacionResponse oResponse = new ListEvaluacionResponse();
+        if (idCliente == null) return oResponse.Error("Campo IdCliente es necesario");  
+        return oResponse.Ok(oRepository.findXFechas(idCliente, fechaini, fechafin));
 	}
 }

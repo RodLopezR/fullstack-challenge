@@ -23,6 +23,8 @@ import com.rodlopezr.evaluacioncliente.models.Evaluacion;
 import com.rodlopezr.evaluacioncliente.services.ClienteServices;
 import com.rodlopezr.evaluacioncliente.services.EvaluacionServices;
 import com.rodlopezr.evaluacioncliente.utils.Constantes;
+import com.rodlopezr.evaluacionclientes.responses.EvaluacionResponse;
+import com.rodlopezr.evaluacionclientes.responses.ListEvaluacionResponse;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -50,7 +52,7 @@ public class EvaluacionController {
         @ApiResponse(code = 403, message = Constantes.ApiResponse403),
         @ApiResponse(code = 404, message = Constantes.ApiResponse404)
 	})
-	public ResponseEntity<List<Evaluacion>> ListCliente() {
+	public ResponseEntity<ListEvaluacionResponse> ListCliente() {
 		try {
 			return ResponseEntity.ok(oService.findAll());
 		}catch(Exception oEx) {
@@ -67,7 +69,7 @@ public class EvaluacionController {
         @ApiResponse(code = 403, message = Constantes.ApiResponse403),
         @ApiResponse(code = 404, message = Constantes.ApiResponse404)
 	})
-	public ResponseEntity<Evaluacion> Save(@RequestBody Evaluacion evaluacion) {
+	public ResponseEntity<EvaluacionResponse> Save(@RequestBody Evaluacion evaluacion) {
 		try {
 			return ResponseEntity.ok(oService.save(evaluacion));
 		}catch(Exception oEx) {
@@ -83,7 +85,7 @@ public class EvaluacionController {
 	        @ApiResponse(code = 403, message = Constantes.ApiResponse403),
 	        @ApiResponse(code = 404, message = Constantes.ApiResponse404)
 	})
-	public ResponseEntity<Evaluacion> Find(@PathVariable String id) {
+	public ResponseEntity<EvaluacionResponse> Find(@PathVariable String id) {
 		try {
 			return ResponseEntity.ok(oService.findOne(id));
 		}catch(Exception oEx) {
@@ -99,12 +101,9 @@ public class EvaluacionController {
         @ApiResponse(code = 403, message = Constantes.ApiResponse403),
         @ApiResponse(code = 404, message = Constantes.ApiResponse404)
 	})
-    public ResponseEntity<Evaluacion> Update(@RequestBody Evaluacion oCliente) {        
+    public ResponseEntity<EvaluacionResponse> Update(@RequestBody Evaluacion oCliente) {        
 		try {
-	        oCliente = oService.update(oCliente);
-	        if (oCliente == null)
-	            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-	        return ResponseEntity.ok(oCliente);
+	        return ResponseEntity.ok(oService.update(oCliente));
 		}catch(Exception oEx) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
@@ -134,7 +133,7 @@ public class EvaluacionController {
         @ApiResponse(code = 403, message = Constantes.ApiResponse403),
         @ApiResponse(code = 404, message = Constantes.ApiResponse404)
 	})
-	public ResponseEntity<List<Evaluacion>> ListEvaluacionXCliente(@PathVariable String id, @PathVariable String fechaini, @PathVariable String fechafin) {
+	public ResponseEntity<ListEvaluacionResponse> ListEvaluacionXCliente(@PathVariable String id, @PathVariable String fechaini, @PathVariable String fechafin) {
 		try {
 			if(fechaini != null && fechafin != null 
 					&& !fechaini.equals("") && !fechafin.equals("")) {

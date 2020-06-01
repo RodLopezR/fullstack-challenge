@@ -1,5 +1,6 @@
 package com.rodlopezr.evaluacioncliente.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -10,6 +11,8 @@ import com.mongodb.client.model.FindOneAndReplaceOptions;
 import com.rodlopezr.evaluacioncliente.models.Cliente;
 import com.rodlopezr.evaluacioncliente.repository.IClienteRepository;
 import com.rodlopezr.evaluacioncliente.utils.Constantes;
+import com.rodlopezr.evaluacionclientes.responses.ClienteResponse;
+import com.rodlopezr.evaluacionclientes.responses.ListClienteResponse;
 
 import java.util.UUID;
 
@@ -24,36 +27,46 @@ public class ClienteServices {
     	this.oRepository = oRepository;
     }
 
-    public List<Cliente> findAll() throws Exception {
-        return oRepository.findAll();
+    public ListClienteResponse findAll() throws Exception {
+    	ListClienteResponse oResponse = new ListClienteResponse();
+        return oResponse.Ok(oRepository.findAll());
     }
 
-    public Cliente findOne(String id) throws Exception {
-        if (id == null) throw new Exception("No Id selected");
-        return oRepository.findById(id).get();
+    public ClienteResponse findOne(String id) throws Exception {
+    	ClienteResponse oResponse = new ClienteResponse();
+        if (id == null) return oResponse.Error("Campo Id es necesario");
+        Cliente oModel = oRepository.findById(id).get();
+        return oResponse.Ok(oModel);
     }
 
-    public Cliente save(Cliente oModel) throws Exception {
-    	if(oModel.getEmail() == null) throw new Exception("No email");
-    	if(oModel.getNombre() == null) throw new Exception("No nombre");
+    public ClienteResponse save(Cliente oModel) throws Exception {
+    	ClienteResponse oResponse = new ClienteResponse();
     	
-    	if(findEmail(oModel) != null) throw new Exception("Email registrado!");
+    	if(oModel.getEmail() == null) return oResponse.Error("Campo Email es necesario");
+    	if(oModel.getNombre() == null) return oResponse.Error("Campo Nombre es necesario");
+    	
+    	List<Cliente> oVal = oRepository.findByEmail(oModel.getEmail());
+    	if(oVal != null && oVal.size() > 0) return oResponse.Error("Email existente");
     	
     	oModel.setId(UUID.randomUUID().toString());
-        return oRepository.save(oModel);
+    	oModel = oRepository.save(oModel);
+        return oResponse.Ok(oModel);
     }
 
-    public Cliente update(Cliente oCliente) throws Exception {
-        if (oCliente.getId() == null) throw new Exception("No Id selected");
-    	if(oCliente.getEmail() == null) throw new Exception("No email");
-    	if(oCliente.getNombre() == null) throw new Exception("No nombre");
+    public ClienteResponse update(Cliente oCliente) throws Exception {
+    	ClienteResponse oResponse = new ClienteResponse();
+    	
+        if (oCliente.getId() == null) return oResponse.Error("Campo Id es necesario");
+    	if(oCliente.getEmail() == null) return oResponse.Error("Campo Email es necesario");
+    	if(oCliente.getNombre() == null) return oResponse.Error("Campo Nombre es necesario");
 
-    	Cliente oVal = findEmail(oCliente);
-    	if(oVal != null && oCliente.getId() != oVal.getId()) {
-    		 throw new Exception("Email registrado con otro usuario");
+    	List<Cliente> oVal = oRepository.findByEmail(oCliente.getEmail());
+    	if(oVal != null && oVal.size() > 0 && oCliente.getId() != oVal.get(0).getId()) {
+    		 return oResponse.Error("Email registrado con otra cuenta");
     	}
 
-        return oRepository.save(oCliente);
+        Cliente oModel = oRepository.save(oCliente);
+        return oResponse.Ok(oModel);
     }
 
     public long delete(String id) throws Exception {
@@ -61,8 +74,8 @@ public class ClienteServices {
         oRepository.deleteById(id); return 1;
     }
 
-    public Cliente findEmail(Cliente oModel) throws Exception {
-        if (oModel.getEmail() == null) throw new Exception("No email");
-        return oRepository.findEmail(oModel.getEmail());
+    public ListClienteResponse findEmail(String email) throws Exception {
+    	ListClienteResponse oResponse = new ListClienteResponse();
+        return oResponse.Ok(oRepository.findByEmail(email));
     }
 }
