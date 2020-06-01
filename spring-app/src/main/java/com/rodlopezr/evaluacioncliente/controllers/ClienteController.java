@@ -3,10 +3,10 @@ package com.rodlopezr.evaluacioncliente.controllers;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rodlopezr.evaluacioncliente.models.Cliente;
+import com.rodlopezr.evaluacioncliente.responses.ClienteResponse;
+import com.rodlopezr.evaluacioncliente.responses.ListClienteResponse;
 import com.rodlopezr.evaluacioncliente.services.ClienteServices;
 import com.rodlopezr.evaluacioncliente.utils.Constantes;
-import com.rodlopezr.evaluacionclientes.responses.ClienteResponse;
-import com.rodlopezr.evaluacionclientes.responses.ListClienteResponse;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -140,6 +140,7 @@ public class ClienteController {
 	})
     public ResponseEntity<ListClienteResponse> findEmail(@PathVariable String email) {
 		try {
+			//email = email.replace("|", ".");
 			return ResponseEntity.ok(oService.findEmail(email));
 		}catch(Exception oEx) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

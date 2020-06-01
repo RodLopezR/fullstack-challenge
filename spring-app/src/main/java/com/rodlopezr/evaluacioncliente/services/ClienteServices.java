@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 import com.mongodb.client.model.FindOneAndReplaceOptions;
 import com.rodlopezr.evaluacioncliente.models.Cliente;
 import com.rodlopezr.evaluacioncliente.repository.IClienteRepository;
+import com.rodlopezr.evaluacioncliente.responses.ClienteResponse;
+import com.rodlopezr.evaluacioncliente.responses.ListClienteResponse;
 import com.rodlopezr.evaluacioncliente.utils.Constantes;
-import com.rodlopezr.evaluacionclientes.responses.ClienteResponse;
-import com.rodlopezr.evaluacionclientes.responses.ListClienteResponse;
 
 import java.util.UUID;
 

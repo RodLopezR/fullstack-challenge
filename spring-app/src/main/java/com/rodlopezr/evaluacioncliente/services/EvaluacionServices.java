@@ -9,10 +9,10 @@ import com.rodlopezr.evaluacioncliente.models.Cliente;
 import com.rodlopezr.evaluacioncliente.models.Evaluacion;
 import com.rodlopezr.evaluacioncliente.repository.IClienteRepository;
 import com.rodlopezr.evaluacioncliente.repository.IEvaluacionRepository;
-import com.rodlopezr.evaluacionclientes.responses.ClienteResponse;
-import com.rodlopezr.evaluacionclientes.responses.EvaluacionResponse;
-import com.rodlopezr.evaluacionclientes.responses.ListClienteResponse;
-import com.rodlopezr.evaluacionclientes.responses.ListEvaluacionResponse;
+import com.rodlopezr.evaluacioncliente.responses.ClienteResponse;
+import com.rodlopezr.evaluacioncliente.responses.EvaluacionResponse;
+import com.rodlopezr.evaluacioncliente.responses.ListClienteResponse;
+import com.rodlopezr.evaluacioncliente.responses.ListEvaluacionResponse;
 
 @Service
 public class EvaluacionServices {

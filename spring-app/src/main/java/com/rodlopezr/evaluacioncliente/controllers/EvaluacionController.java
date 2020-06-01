@@ -20,11 +20,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.rodlopezr.evaluacioncliente.models.Cliente;
 import com.rodlopezr.evaluacioncliente.models.Evaluacion;
+import com.rodlopezr.evaluacioncliente.responses.EvaluacionResponse;
+import com.rodlopezr.evaluacioncliente.responses.ListEvaluacionResponse;
 import com.rodlopezr.evaluacioncliente.services.ClienteServices;
 import com.rodlopezr.evaluacioncliente.services.EvaluacionServices;
 import com.rodlopezr.evaluacioncliente.utils.Constantes;
-import com.rodlopezr.evaluacionclientes.responses.EvaluacionResponse;
-import com.rodlopezr.evaluacionclientes.responses.ListEvaluacionResponse;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
