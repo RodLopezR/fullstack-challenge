@@ -13,15 +13,16 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.rodlopezr.evaluacioncliente.controllers.ClienteController;
 import com.rodlopezr.evaluacioncliente.models.Cliente;
+import com.rodlopezr.evaluacioncliente.responses.ClienteResponse;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-//@WebMvcTest(ClienteController.class)
 public class ClienteTest {
 
 	@Autowired
@@ -32,7 +33,12 @@ public class ClienteTest {
 
 	@Test
 	public void ListCliente() throws Exception {
-		mvc.perform(MockMvcRequestBuilders.get("/api/cliente/list")
+		Cliente tmp = new Cliente("qwe", "Rodrigo", "emailtest@gmail.com");
+		ClienteResponse oCliente = eController.Save(tmp).getBody();
+		
+		given(eController.Find(oCliente.data.getId())).willReturn(ResponseEntity.ok(oCliente));
+		
+		mvc.perform(MockMvcRequestBuilders.get("/api/cliente")
 			.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk());
 	}
