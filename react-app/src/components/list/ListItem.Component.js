@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import { StarsRender, Message } from '../stats/Stats.Component';
 import { Trash, Pencil } from 'react-bootstrap-icons';
 
-const ListItem = ({ index , item, onEdit, onRemove }) => {
+const ListItem = ({ item, onEdit, onRemove }) => {
 
     return (
         <tr>

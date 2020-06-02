@@ -77,7 +77,7 @@ const DeleteRequest = async (url, params) => {
     });
 };
 
-const BaseUrl = "http://localhost:5000/api/";
+const BaseUrl = "http://dockerspringapp-env.eba-8ubmqnvq.sa-east-1.elasticbeanstalk.com/api/";
 
 export {
     GetRequest,

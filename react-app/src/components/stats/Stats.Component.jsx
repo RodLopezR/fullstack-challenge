@@ -1,7 +1,7 @@
 import React from 'react';
 import { Star } from 'react-bootstrap-icons';
 
-const StarsRender = (count) => {
+const StarsRender = ({ count }) => {
     switch(count){
         case 1: return <span><Star/></span>;
         case 2: return <span><Star/><Star/></span>;
