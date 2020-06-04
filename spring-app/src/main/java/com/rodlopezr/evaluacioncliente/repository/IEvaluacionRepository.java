@@ -11,9 +11,9 @@ import com.rodlopezr.evaluacioncliente.models.Evaluacion;
 @Component
 public interface IEvaluacionRepository extends MongoRepository<Evaluacion, String> {
 
-	@Query("[{'idCliente' : '?0'}]")
+	@Query("{ 'idCliente' : '?0' }")
 	public List<Evaluacion> findXCliente(String idcliente) throws Exception;
 
-	@Query("[{idCliente: ?0, registro : ?1}]")
+	@Query("{ $and: [ { 'idCliente' : '?0' } ] }") //, { 'registro': { $gt: '?1', $lt: '?2' } }
 	public List<Evaluacion> findXFechas(String idcliente, String fechaini, String fechafin) throws Exception;
 }

@@ -1,22 +1,15 @@
 package com.rodlopezr.evaluacioncliente.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
-import com.mongodb.client.model.FindOneAndReplaceOptions;
 import com.rodlopezr.evaluacioncliente.models.Cliente;
 import com.rodlopezr.evaluacioncliente.repository.IClienteRepository;
 import com.rodlopezr.evaluacioncliente.responses.ClienteResponse;
 import com.rodlopezr.evaluacioncliente.responses.ListClienteResponse;
-import com.rodlopezr.evaluacioncliente.utils.Constantes;
 
 import java.util.UUID;
-
-import static com.mongodb.client.model.Filters.eq;
 
 @Service
 public class ClienteServices {

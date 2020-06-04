@@ -25,6 +25,7 @@ import com.rodlopezr.evaluacioncliente.responses.ListEvaluacionResponse;
 import com.rodlopezr.evaluacioncliente.services.ClienteServices;
 import com.rodlopezr.evaluacioncliente.services.EvaluacionServices;
 import com.rodlopezr.evaluacioncliente.utils.Constantes;
+import com.rodlopezr.evaluacioncliente.requests.ListaEvaluacionCliente;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -125,7 +126,7 @@ public class EvaluacionController {
 		}
     }
 
-	@GetMapping("cliente/evaluacion/{id}/{fechaini}/{fechafin}")
+	@PostMapping("cliente/evaluacion/")
 	@ApiOperation(value = "Lista evaluaciones registradas, lista por cliente", response = Evaluacion.class, responseContainer="List")
 	@ApiResponses(value = {
         @ApiResponse(code = 200, message = Constantes.ApiResponse200),
@@ -133,17 +134,18 @@ public class EvaluacionController {
         @ApiResponse(code = 403, message = Constantes.ApiResponse403),
         @ApiResponse(code = 404, message = Constantes.ApiResponse404)
 	})
-	public ResponseEntity<ListEvaluacionResponse> ListEvaluacionXCliente(@PathVariable String id, @PathVariable String fechaini, @PathVariable String fechafin) {
+	public ResponseEntity<ListEvaluacionResponse> ListEvaluacionXCliente(@RequestBody ListaEvaluacionCliente request) {
 		try {
-			if(fechaini != null && fechafin != null 
-					&& !fechaini.equals("") && !fechafin.equals("")) {
-				//return ResponseEntity.ok(oService.findXClienteXFechas(id, fechaini, fechafin));
-				return ResponseEntity.ok(oService.findAll());
+			if(request.getFechaini() != null && request.getFechafin() != null 
+					&& !request.getFechaini().equals("") && !request.getFechafin().equals("")) {
+				return ResponseEntity.ok(
+					oService.findXClienteXFechas(request.getIdCliente(), request.getFechaini(), request.getFechafin())
+				);
 			}else {
-				return ResponseEntity.ok(oService.findXCliente(id));
+				return ResponseEntity.ok(oService.findXCliente(request.getIdCliente()));
 			}
 		}catch(Exception oEx) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return ResponseEntity.ok(new ListEvaluacionResponse().Error(oEx.getMessage()));//HttpStatus.NOT_FOUND).build();
 		}
 	}
 }
