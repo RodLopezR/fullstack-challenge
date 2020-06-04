@@ -3,12 +3,14 @@ import { ListarEvaluaciones } from '../request/EvaluacionRequest.Component';
 
 describe('Request Component', function() {
 
-    it("Test connection to backend", async () => {
+    it("Test connection to backend", async done => {
         try {
             const response = await ListarEvaluaciones();
-            console.log(response);
+            expect(response).not.toBe(null);
+            expect(response.length).not.toBe(0);
+            done();
         }catch(ex){
-            console.log(ex);
+            done(ex);
         }
     });
 

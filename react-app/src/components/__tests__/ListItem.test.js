@@ -17,11 +17,6 @@ describe('ListItem Component', function() {
         const wrapper = mount(<ListItem item={{ evaluacion: 1 }} onEdit={null} onRemove={null}/>);  
         expect(wrapper).toMatchSnapshot();
     });  
-    
-    /*it('should be selectable by selector "tr"', function() {
-        const wrapper = mount(<ListItem item={{ evaluacion: 1 }} onEdit={null} onRemove={null}/>);
-        expect(wrapper.is('div')).toBe(true);
-    });*/
 
     it("formats temp correctly", () => {
         const wrapper = mount(<ListItem item={{ evaluacion: 1 }} onEdit={null} onRemove={null}/>);

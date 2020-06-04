@@ -2,14 +2,6 @@ import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils'; 
 import { Message, StarsRender } from '../stats/Stats.Component';
 
-describe('Message.Component', () => {
- 
-    it('', () => {
-        expect(true).toBeTruthy();
-    })
-
-});
-
 describe('Starts.Component', () => {
  
     it('has an span tag', () => {

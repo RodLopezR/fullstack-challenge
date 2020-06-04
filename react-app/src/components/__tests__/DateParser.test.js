@@ -3,10 +3,10 @@ import DateParser from '../utils/DateParser';
 
 describe('DateParser Component', () => {
     it('passing test', () => {
-      expect(true).toBeTruthy();
+      expect(DateParser(null)).toBe("");
     })
    
     it('failing test', () => {
-      expect(true).toBeTruthy();
+      expect(DateParser(new Date())).not.toBe("");
     })
 });
